@@ -1,41 +1,75 @@
-//package heykakao.HeyForm.service;
+package heykakao.HeyForm.service;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+import heykakao.HeyForm.model.*;
+import heykakao.HeyForm.model.dto.SurveyAnswerDto;
+import heykakao.HeyForm.model.dto.SurveyQuestionDto;
+import heykakao.HeyForm.repository.*;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+
+import javax.transaction.Transactional;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.util.Date;
+import java.util.Optional;
+
+@SpringBootTest
+class TestResult {
+    @Autowired
+    UserRepository userRepository;
+    @Autowired
+    SurveyRepository surveyRepository;
+    @Autowired
+    QuestionRepository questionRepository;
+    @Autowired
+    ChoiceRepository choiceRepository;
+    @Autowired
+    AnswerRepository answerRepository;
+
+    @Autowired
+    DtoService dtoService;
+
+    @Autowired
+    SurveyService surveyService;
+
+    @Autowired
+    KakaoService kakaoService;
+
+
+
+
+//    @Test
+//    public void test() throws Exception {
+//        JWTService jwtService = new JWTService();
+//        String user_token = "eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiJoZXlmb3JtIiwiZW1haWwiOiJhYm9ZS1RyRXdnNG1VdWhpUG5GcmotOTYtLTVmUXNrTmo2TnVzNzI0Q2lsdnVBQUFBWVJQWC1aRCIsImlhdCI6MTY2Nzc4MTcwNSwiZXhwIjoxNjY3NzgyMDY1fQ.bJd09k77lvHdPcfAkzxJNW-gXTGFRPAWWh2-3UKef8U";
+//        Object user_account = jwtService.getClaims(user_token,JWTService.SECRET_KEY).getBody().get("email");
+//        String test = "test";
 //
-//import com.fasterxml.jackson.databind.ObjectMapper;
-//import heykakao.HeyForm.model.*;
-//import heykakao.HeyForm.model.dto.SurveyAnswerDto;
-//import heykakao.HeyForm.model.dto.SurveyQuestionDto;
-//import heykakao.HeyForm.repository.*;
-//import org.junit.jupiter.api.DisplayName;
-//import org.junit.jupiter.api.Test;
-//import org.springframework.beans.factory.annotation.Autowired;
-//import org.springframework.boot.test.context.SpringBootTest;
+//        System.out.println(String.valueOf(user_account));
+//        Long user_id = userRepository.findByAccount(String.valueOf(user_account)).get().getId();
 //
-//import javax.transaction.Transactional;
-//import java.util.Optional;
-//
-//@SpringBootTest
-//@Transactional
-//class TestResult {
-//    @Autowired
-//    UserRepository userRepository;
-//    @Autowired
-//    SurveyRepository surveyRepository;
-//    @Autowired
-//    QuestionRepository questionRepository;
-//    @Autowired
-//    ChoiceRepository choiceRepository;
-//    @Autowired
-//    AnswerRepository answerRepository;
-//
-//    @Autowired
-//    DtoService dtoService;
-//
-//    @Autowired
-//    SurveyService surveyService;
-//
-//
-//
-//
+//    }
+//    @Test
+//    public void timetest(){
+//        String tmp = "2022-11-02 22:13:00";
+//        Timestamp now = new Timestamp(System.currentTimeMillis());
+//        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+//        Timestamp tx = Timestamp.valueOf(tmp);
+//        if (tx.before(now)){
+//            System.out.println("passed");
+//        }
+//        else{
+//            System.out.println("not yet");
+//        }
+//        System.out.println(sdf.format(now));
+//        System.out.println(tx);
+//    }
 //    @DisplayName("AIService 테스트")
 //    @Test
 //    public void AIService() throws Exception{
@@ -118,5 +152,5 @@
 //    public void DtoService_updateSurvey() throws  Exception{
 //
 //    }
-//
-//}
+
+}

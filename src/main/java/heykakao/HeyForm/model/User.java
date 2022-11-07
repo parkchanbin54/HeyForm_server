@@ -37,6 +37,14 @@ public class User {
         this.age =age_range;
         this.gender = gender;
     }
+
+    public void setByDto(UserDto userDto){
+        this.account = userDto.getAccount();
+        this.name = userDto.getName();
+        this.email = userDto.getEmail();
+        this.gender = userDto.getGender();
+    }
+
 //    public void setByUserAccount(String userAccount) {this.account = userAccount;}
 //    public void setByDto(UserDto userDto) {
 //        this.account = userDto.getAccount();

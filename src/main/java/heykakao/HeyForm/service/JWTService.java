@@ -7,7 +7,7 @@ import java.util.Date;
 public class JWTService {
     // secret_key
     public static String SECRET_KEY = "heyform";
-    private static long tokenValidMilisecond = 1000L * 60 * 60;
+    private static long tokenValidMilisecond = 1000L * 6 * 60;
 
     public String createToken(String key, String tmp) {
         var claims = Jwts.claims().setId(key);
@@ -26,10 +26,14 @@ public class JWTService {
                 .parseClaimsJws(jwt);    }
         catch(SignatureException e) {      return null;    }  }
 
-    public boolean validateToken(Jws<Claims> claims) {
-        return !claims.getBody()
-                .getExpiration()
-                .before(new Date());  }
+    public boolean validateToken(String jwtToken) {
+        try {
+            Jws<Claims> claims = Jwts.parser().setSigningKey(SECRET_KEY).parseClaimsJws(jwtToken);
+            return !claims.getBody().getExpiration().before(new Date());
+        } catch (Exception e) {
+            return false;
+        }
+    }
 
     public String getKey(Jws<Claims> claims) {
         return claims.getBody()

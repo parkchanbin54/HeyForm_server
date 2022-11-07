@@ -1,8 +1,11 @@
 heykakao/HeyForm/model/dto/SurveyQuestionDto.class
 heykakao/HeyForm/model/Answer.class
+heykakao/HeyForm/repository/QARepository.class
+heykakao/HeyForm/model/dto/QADto.class
 heykakao/HeyForm/model/User.class
 heykakao/HeyForm/model/dto/UserDto.class
 heykakao/HeyForm/model/dto/AnswerDto.class
+heykakao/HeyForm/service/KakaoService.class
 heykakao/HeyForm/SwaggerConfig.class
 heykakao/HeyForm/model/dto/SurveyAnswerDto.class
 heykakao/HeyForm/repository/QuestionRepository.class
@@ -23,7 +26,11 @@ heykakao/HeyForm/repository/UserRepository.class
 heykakao/HeyForm/HeyFormApplication.class
 heykakao/HeyForm/service/SurveyService.class
 heykakao/HeyForm/controller/QuestionController.class
+heykakao/HeyForm/controller/QAController.class
 heykakao/HeyForm/service/AIService.class
+heykakao/HeyForm/exception/ExceptionResponse.class
+heykakao/HeyForm/exception/ResponseEntityHandler.class
 heykakao/HeyForm/model/dto/QuestionDto.class
 heykakao/HeyForm/service/JWTService.class
 heykakao/HeyForm/controller/UserController.class
+heykakao/HeyForm/model/QA.class

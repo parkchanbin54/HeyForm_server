@@ -12,15 +12,11 @@ public class AnswerDto {
     private Integer question_order;
     private String answer_contents;
 
-    private Long user_id;
+    private String answer_time;
 
-    private String gender;
-    private String age;
     public AnswerDto(Answer answer) {
         this.question_order = answer.getOrder();
         this.answer_contents = answer.getContents();
-        this.user_id = answer.getUser().getId();
-        this.age = answer.getUser().getAge();
-        this.gender = answer.getUser().getGender();
+        this.answer_time = answer.getTime();
     }
 }

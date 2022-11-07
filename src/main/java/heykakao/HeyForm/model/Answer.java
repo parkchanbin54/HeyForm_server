@@ -21,6 +21,9 @@ public class Answer {
     @Column(name = "answer_contents")
     private String contents;
 
+    @Column(name = "answer_time")
+    private String time;
+
     @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "user_id")
@@ -47,6 +50,7 @@ public class Answer {
         this.contents = answerDto.getAnswer_contents();
         this.user = user;
         this.question = question;
+        this.time = answerDto.getAnswer_time();
     }
 
     public void setUser(User user) {

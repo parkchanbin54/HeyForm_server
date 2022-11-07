@@ -83,6 +83,8 @@ public class Survey {
     public void setUrl(String url) {
         this.url = url;
     }
+
+    public void setState(Integer state){this.state = state;}
 }
 
 //질문 : {주관식, something}, {객관식, {1,2,3,4,5} }
