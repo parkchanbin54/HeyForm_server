@@ -130,7 +130,7 @@ public class SurveyController {
         List<User> users = userRepository.findAll();
         List<List<SurveyQuestionDto>> allInfo = new ArrayList<>();
         for (User user : users) {
-            List<SurveyQuestionDto> surveyQuestionDtos =  dtoService.getSurveysByUserToken(user.getToken());
+            List<SurveyQuestionDto> surveyQuestionDtos =  dtoService.getSurveysByUserToken(user.getAccount());
             allInfo.add(surveyQuestionDtos);
         }
 

@@ -7,7 +7,7 @@ import java.util.Date;
 public class JWTService {
     // secret_key
     public static String SECRET_KEY = "heyform";
-    private static long tokenValidMilisecond = 1000L * 6 * 60;
+    private static long tokenValidMilisecond = 10000L * 60 * 60;
 
     public String createToken(String key, String tmp) {
         var claims = Jwts.claims().setId(key);

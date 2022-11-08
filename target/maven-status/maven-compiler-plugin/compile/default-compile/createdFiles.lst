@@ -13,6 +13,7 @@ heykakao/HeyForm/repository/ChoiceRepository.class
 heykakao/HeyForm/controller/AnswerController.class
 heykakao/HeyForm/model/dto/ChoiceDto.class
 heykakao/HeyForm/repository/AnswerRepository.class
+heykakao/HeyForm/JasyptConfigDES.class
 heykakao/HeyForm/repository/SurveyRepository.class
 heykakao/HeyForm/controller/SurveyController.class
 heykakao/HeyForm/model/Choice.class

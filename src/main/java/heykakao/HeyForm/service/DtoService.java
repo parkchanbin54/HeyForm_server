@@ -1,6 +1,7 @@
 package heykakao.HeyForm.service;
 
 import com.fasterxml.jackson.databind.util.JSONPObject;
+import com.google.gson.Gson;
 import heykakao.HeyForm.model.*;
 import heykakao.HeyForm.model.dto.*;
 import heykakao.HeyForm.repository.*;
@@ -13,10 +14,7 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -46,7 +44,6 @@ public class DtoService {
 
         Object user_account = jwtService.getClaims(jwtService.getClaims(user_token,JWTService.SECRET_KEY),"email");
         User user = userRepository.findByAccount(user_account.toString()).get();
-        System.out.println(user);
         SurveyDto surveyDto = surveyQuestionDto.getSurveyDto();
 
         Survey survey = new Survey();
@@ -261,7 +258,7 @@ public class DtoService {
         try {
             Object user_account = jwtService.getClaims(jwtService.getClaims(user_token,JWTService.SECRET_KEY),"email");
             Long user_id = userRepository.findByAccount(String.valueOf(user_account)).get().getId();
-            System.out.println(user_account.toString());
+
             return getSurveyQuestionDtos(user_id);
         } catch (Exception e) {
             throw new IllegalStateException("일치 정보가 없습니다.");
@@ -509,15 +506,16 @@ public class DtoService {
     public String statistic(Long survey_id){
         List<Long> question_ids = questionRepository.findBySurvey_Id(survey_id).stream().map(Question::getId).collect(Collectors.toList());
         JSONObject result = new JSONObject();
+        Integer sequence = 0;
         for(Long question_id : question_ids){
-            JSONObject jsonObject_title = new JSONObject();
-            JSONObject jsonObject_gender = new JSONObject();
-            JSONObject jsonObject_age = new JSONObject();
+            JSONArray titleJson = new JSONArray();
+            JSONArray genderJson = new JSONArray();
+            JSONArray ageJson = new JSONArray();
 
 
-            HashMap<String,Integer> titles = new HashMap<>();
-            HashMap<String,Integer> genders = new HashMap<>();
-            HashMap<String,Integer> ages = new HashMap<>();
+            LinkedHashMap<String,Integer> titles = new LinkedHashMap<>();
+            LinkedHashMap<String,Integer> genders = new LinkedHashMap<>();
+            LinkedHashMap<String,Integer> ages = new LinkedHashMap<>();
 
             Question question = questionRepository.getReferenceById(question_id);
             if (question.getType() == "주관식"){
@@ -552,24 +550,61 @@ public class DtoService {
                         ages.replace(age,ages.get(age)+1);
                     }
                 }
+
                 for (String title : titles.keySet()) {
-                    jsonObject_title.put(title, titles.get(title));
+                    JSONObject jsonObject_title = new JSONObject();
+                    if (question.getType().equals("단답식"))
+                    {
+                        jsonObject_title.put("value",title);
+                        jsonObject_title.put("count",titles.get(title));
+                    }
+                    else if(question.getType().equals("객관식")){
+
+
+                        jsonObject_title.put("choice",title);
+                        jsonObject_title.put("응답수",titles.get(title));
+
+                    }
+                    else if(question.getType().equals("리커트")){
+                        jsonObject_title.put("likert",title);
+                        jsonObject_title.put("응답수",titles.get(title));
+                    }
+                    else if(question.getType().equals("별점")){
+                        jsonObject_title.put("star",title);
+                        jsonObject_title.put("응답수",titles.get(title));
+                    }
+                    else if(question.getType().equals("감정바")){
+                        jsonObject_title.put("id",title);
+                        jsonObject_title.put("value",titles.get(title));
+                    }
+                    titleJson.add(jsonObject_title);
                 }
+
                 for (String gender : genders.keySet()){
-                    jsonObject_gender.put(gender, genders.get(gender));
+                    JSONObject jsonObject_gender = new JSONObject();
+                    jsonObject_gender.put("gender",gender);
+                    jsonObject_gender.put("응답자수",genders.get(gender));
+                    genderJson.add(jsonObject_gender);
                 }
+
                 for (String age : ages.keySet()){
-                    jsonObject_age.put(age, ages.get(age));
+                    JSONObject jsonObject_age = new JSONObject();
+                    jsonObject_age.put("id",age);
+                    jsonObject_age.put("value",ages.get(age));
+                    ageJson.add(jsonObject_age);
                 }
             }
 
             JSONArray jsonArray = new JSONArray();
-            jsonArray.add(jsonObject_title);
-            jsonArray.add(jsonObject_gender);
-            jsonArray.add(jsonObject_age);
-            result.put("Question"+question.getId()+" "+question.getType(),jsonArray);
+            jsonArray.add(titleJson);
+            jsonArray.add(genderJson);
+            jsonArray.add(ageJson);
+            sequence = sequence + 1;
+            result.put(sequence,jsonArray);
         }
-        return result.toJSONString();
+        Gson gson = new Gson();
+
+        return gson.toJson(result);
     }
 
     public boolean tokencheck(String token){

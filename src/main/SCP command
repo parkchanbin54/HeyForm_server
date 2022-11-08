@@ -3,4 +3,6 @@ sudo scp -P 10003 -i /Users/kangdoowon/bastionKey.pem ./target/HeyForm-0.0.1-SNA
 
  sudo ssh -i bastionKey.pem centos@210.109.61.98
 
+mvn clean install -Plocal
+
 sudo scp -P 10003 -i /Users/kangdoowon/bastionKey.pem ./target/HeyForm-0.0.1-SNAPSHOT.jar centos@210.109.63.74:/home/centos
