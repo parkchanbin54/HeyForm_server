@@ -559,8 +559,6 @@ public class DtoService {
                         jsonObject_title.put("count",titles.get(title));
                     }
                     else if(question.getType().equals("객관식")){
-
-
                         jsonObject_title.put("choice",title);
                         jsonObject_title.put("응답수",titles.get(title));
 
